@@ -1,4 +1,5 @@
 const Post = require("../models/post.model");
+const Shop = require('../models/shop.model')
 
 const PostController =  {
   getAll : async (req, res) => {
@@ -25,6 +26,10 @@ const PostController =  {
   create: async (req, res) => {
     try {
         const post = await Post.create(req.body);
+        const shop = await Shop.findById(req.body.shop)
+
+        shop.posts.push(post._id)
+        await shop.save()
         res.send(post);
     } catch (error) {
         console.log(error);

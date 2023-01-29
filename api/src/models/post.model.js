@@ -2,17 +2,36 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const postSchema = new Schema({
-  title: String,
-  title: String,
-  imageUrl: String,
-  weight: Number,
-  size: Number,
-  style: String,
-  price: Number,
-  description: String,
+  title: {
+    type: String,
+    required: true
+  },
+  imageUrl: {
+    type: String,
+    required: true
+  },
+  weight: {
+    type: Number,
+    required: true
+  },
+  size: {
+    type: Number,
+    required: true
+  },
+  style: {
+    type: String,
+    required: true
+  },
+  price: {
+    type: Number,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
   date: {
     type: Date,
-    // `Date.now()` returns the current unix timestamp as a number
     default: Date.now
   },
   isAvailable: Boolean,
@@ -23,7 +42,11 @@ const postSchema = new Schema({
   bookings: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Booking"
-  }]
+  }],
+  shop: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Shop"
+  }
 })
 
 module.exports = mongoose.model('Post', postSchema);

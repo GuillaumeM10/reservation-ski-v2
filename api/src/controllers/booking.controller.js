@@ -1,5 +1,6 @@
 const Booking = require("../models/booking.model");
 const Post = require("../models/post.model");
+const Shop = require('../models/shop.model');
 
 const BookingController =  {
   getAll : async (req, res) => {
@@ -24,12 +25,18 @@ const BookingController =  {
   create: async (req, res) => {
     try {
         const booking = await Booking.create(req.body);
-        const post = await Post.findById(booking.post)
+        const post = await Post.findById(booking.post);
+        const shop = await Shop.findById(post.shop)
 
-        post.bookings.push(booking._id)
-        post.isAvailable = false
+        booking.shop = post.shop
+
+        post.bookings.push(booking._id);
+        post.isAvailable = false;
+
+        shop.bookings.push(booking._id)
         
         await post.save()
+        await shop.save()
         res.send(booking);
     } catch (error) {
         console.log(error);

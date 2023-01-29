@@ -6,6 +6,7 @@ const connectMongo = require('./config/mongo.config');
 const postRouter = require('./src/routers/post.router')
 const bookingRouter = require('./src/routers/booking.router')
 const commentRouter = require('./src/routers/comment.router')
+const shopRouter = require('./src/routers/shop.router')
 const POST_PREFIX = '/api'
 
 connectMongo()
@@ -19,6 +20,7 @@ app.get(POST_PREFIX, (req, res) => {
 app.use(POST_PREFIX, postRouter)
 app.use(POST_PREFIX, bookingRouter)
 app.use(POST_PREFIX, commentRouter)
+app.use(POST_PREFIX, shopRouter)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}!`)
