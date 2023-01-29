@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "2265cf16-a197-4eac-a077-ea84e5f0495f",
-		"name": "Reservation Ski",
+		"_postman_id": "e47d6cd9-50b8-4ab7-a15e-6872898af7d3",
+		"name": "Reservation Ski v2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -50,7 +50,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"titre\",\r\n    \"imageUrl\": \"https://image.com\",\r\n    \"weight\": 3,\r\n    \"size\": 4,\r\n    \"style\": \"freestyle\",\r\n    \"price\": 12,\r\n    \"description\": \"desc\",\r\n    \"isAvailable\": true\r\n}",
+							"raw": "{\r\n    \"title\": \"titre\",\r\n    \"imageUrl\": \"https://image.com\",\r\n    \"weight\": 3,\r\n    \"size\": 4,\r\n    \"style\": \"freestyle\",\r\n    \"price\": 12,\r\n    \"description\": \"desc\",\r\n    \"isAvailable\": true,\r\n    \"shop\": \"63d6cebff008d6c63e84fc29\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -152,7 +152,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"telephoneNumber\": \"+33666666666\",\r\n   \"post\": \"63d69f2b0d3eef97e8b58be5\"\r\n}",
+							"raw": "{\r\n   \"telephoneNumber\": \"+33666666677\",\r\n   \"post\": \"63d6ced8f008d6c63e84fc2f\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -321,6 +321,117 @@
 							],
 							"path": [
 								"comments",
+								"63d695b62f5c010979a3f8f9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Shop",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/shops",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"shops"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/shops/63d695b62f5c010979a3f8f9",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"shops",
+								"63d695b62f5c010979a3f8f9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"shop1\",\r\n    \"address\": \"the street of nowhere\",\r\n    \"password\": \"admin123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/shops",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"shops"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"leusername2\",\r\n    \"starts\":17,\r\n    \"description\": \"desc2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/shops/63d69fbf597bdf0dd615118f",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"shops",
+								"63d69fbf597bdf0dd615118f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/shops/63d695b62f5c010979a3f8f9",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"shops",
 								"63d695b62f5c010979a3f8f9"
 							]
 						}
