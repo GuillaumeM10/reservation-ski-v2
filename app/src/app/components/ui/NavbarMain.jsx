@@ -8,13 +8,9 @@ const ConfigNavbarItems = [
     label: 'Home',
   },
   {
-    path: '/auth/signin',
-    label: 'SignIn',
-  },
-  {
-    path: '/auth/signup',
-    label: 'SignUp',
-  },
+    path: '/shops',
+    label: 'Shops',
+  }
 ];
 
 
@@ -26,8 +22,14 @@ const NavbarMain = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        p: 2,
-        backgroundColor: 'primary.main',
+        p: 0.5,
+        backgroundColor: 'primary.main50',
+        color: 'white',
+        gap: 10,
+        backdropFilter: 'saturate(180%) blur(20px)',
+        position: 'sticky',
+        top: 0,
+        zIndex: 99999,
       }}
     >
       {ConfigNavbarItems.map((item, index) => (

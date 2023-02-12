@@ -1,7 +1,7 @@
-import { Box, Grid } from '@mui/material'
+import { Box } from '@mui/material'
 import { useEffect, useState } from 'react';
 import PostService from '../../../setup/services/post.service';
-import PostCardMain from './card/PostCardMain';
+import PostCardMain from './PostCardMain';
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
@@ -13,7 +13,7 @@ const PostList = () => {
   const fetchAllPosts = async () => {
     try{
       const response = await PostService.getAll()
-      setPosts([...response.products]);
+      setPosts([...response]);
     } catch(err){
       console.log(err);
     }
@@ -21,13 +21,16 @@ const PostList = () => {
   
   return (
     <Box>
-      <Grid container spacing={2}>
+      {/* <Grid container spacing={2}> */}
+      <ul className='mainList'>
+
         {posts.map((post) => (
-          <Grid item xs={12} sm={6} md={4} key={post.id}>
+          <li key={post._id} >
             <PostCardMain post={post} />
-          </Grid>
+          </li>
         ))}
-      </Grid>
+      {/* </Grid> */}
+      </ul>
     </Box>
   );
 };

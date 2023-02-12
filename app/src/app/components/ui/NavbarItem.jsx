@@ -11,8 +11,10 @@ const NavbarItem = ({ path, label }) => {
       sx={{
         color: 'white',
         textDecoration: 'none',
-        p: 2,
+        p: 1,
         borderRadius: 1,
+        textTransform: 'uppercase',
+        transition: 'all 0.3s ease-in-out',
         '&:hover': {
           backgroundColor: 'primary.dark',
         }

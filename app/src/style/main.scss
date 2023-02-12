@@ -1,0 +1,120 @@
+//variables
+$mobile: 768px;
+$desktop: 1024px;
+
+$pxM: 20px;
+$pxD: 80px;
+
+// general
+body{
+  scroll-behavior: smooth;
+  font-family: 'Roboto', sans-serif;
+}
+
+.App{
+  > div{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  main{
+    padding-bottom: 50px;
+  }
+  footer{
+    margin-top: auto;
+  }
+}
+
+.mainList{
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 10px auto;
+
+  li{
+    background-color: #E9F8F9;
+    width: calc(100% - 2rem);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+
+    .cardMain{
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      align-items: center;
+
+      img{
+        width: 300px;
+        height: 150px;
+        object-fit: cover;
+      }
+    }
+  }
+  @media screen and (max-width: $mobile){
+    padding: $pxM;
+    width: 300px;
+
+    li{
+      flex-direction: column;
+      gap: 1rem;
+
+      .cardMain{
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+        width: 100%;
+
+        img{
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+.toTop{
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+}
+
+// Posts Detail Page
+.postDetails{
+  padding: $pxD;
+
+  img{
+    width: 100%;
+  }
+  @media screen and (max-width: $mobile){
+    padding: $pxM;
+  }
+}
+
+// Shop Detail Page
+.shopDetails{
+  padding: 0 $pxD;
+
+  @media screen and (max-width: $mobile){
+    padding: $pxM;
+  }
+}
+.detailHeader{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.buttons{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

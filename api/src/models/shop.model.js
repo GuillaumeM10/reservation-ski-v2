@@ -31,6 +31,9 @@ const shopSchema = new Schema({
   password: {
     type: String,
     required: true
+  },
+  logo: {
+    type: String
   }
 })
 

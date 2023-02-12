@@ -8,9 +8,11 @@ const bookingRouter = require('./src/routers/booking.router')
 const commentRouter = require('./src/routers/comment.router')
 const shopRouter = require('./src/routers/shop.router')
 const POST_PREFIX = '/api'
+const cors = require('cors')
 
 connectMongo()
 
+app.use(cors())
 app.use(express.json());
 
 app.get(POST_PREFIX, (req, res) => {
