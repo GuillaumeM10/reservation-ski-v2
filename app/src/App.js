@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { createTheme, ThemeProvider } from "@mui/material";
+import { BrowserRouter } from "react-router-dom";
+import MainLayout from "./app/layouts/MainLayout";
+import MainRouter from "./app/routers/MainRouter";
+
+const primaryTheme = createTheme({
+  palette: {
+    primary: {
+      main: "#886701",
+    },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+        },
+        contained : {
+          // backgroundColor: "purple",
+        }
+      },
+    },
+  }
+});
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ThemeProvider theme={primaryTheme}>
+        <BrowserRouter>
+          <MainLayout>
+            <MainRouter />
+          </MainLayout>
+        </BrowserRouter>
+      </ThemeProvider>
     </div>
   );
 }
