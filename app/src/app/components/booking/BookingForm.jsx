@@ -16,8 +16,11 @@ const style = {
   pt: 8,
 };
 
-const BookingForm = ({ post }) => {
+const BookingForm = ({ post, fetchPost }) => {
   const [booking, setBooking] = useState({});
+  const isBooked = post.isAvailable;
+
+  console.log(isBooked);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -34,8 +37,13 @@ const BookingForm = ({ post }) => {
 
   const createBooking = async () => {
     try {
-      await BookingService.create(booking);
-      await PostService.update(post._id, {isAvailable: false});
+      if(isBooked){
+        await BookingService.create(booking);
+        await PostService.update(post._id, {isAvailable: false});
+        fetchPost();
+      }else{
+        alert("This item is already booked");
+      }
     } catch (error) {
       console.log("error", error);
     }
@@ -49,16 +57,29 @@ const BookingForm = ({ post }) => {
         alignItems: 'center'
       }}
     >
-      <Button
-        variant='contained'
-        sx={{
-          zIndex: 1,
-        }}
-        onClick={handleOpen}
-      >
-        Book this Stuff
-      </Button>
+      {isBooked ? 
+        <Button
+          variant='contained'
+          sx={{
+            zIndex: 1,
+          }}
+          onClick={handleOpen}
+        >
+          Book this Stuff
+        </Button>
+      : 
+        <Button
+          variant='contained'
+          sx={{
+            zIndex: 1,
+            color: 'grey',
+          }}
+          disabled
+        >
+          This is already booked
+        </Button>
 
+      }
       <Modal
         open={open}
         onClose={handleClose}

@@ -10,6 +10,8 @@ const FooterMain = ({ title }) => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        flexWrap: 'nowrap',
+        flexDirection: 'row',
         p: 1.5,
         mt: 5,
         backgroundColor: 'primary.main50',

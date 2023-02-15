@@ -19,6 +19,14 @@ a{
   text-decoration: none;
 }
 
+.MuiModal-root{
+  z-index: 99999!important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: scroll;
+}
+
 input[type="search"]{
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.479);
@@ -104,6 +112,7 @@ input[type="search"]{
         font-size: 14px;
       }
     }
+
   }
 
   .cardMain.commentCard{
@@ -122,6 +131,7 @@ input[type="search"]{
     li{
       flex-direction: column;
       gap: 1rem;
+      width: 80%;
 
       .cardMain{
         flex-direction: column;
@@ -195,4 +205,13 @@ input[type="search"]{
     }
 
   }
+}
+
+.shopLogo{
+  width: auto;
+  height: 35px;
+  position: fixed;
+  top: 5px;
+  left: 20px;
+  z-index: 99999999;
 }

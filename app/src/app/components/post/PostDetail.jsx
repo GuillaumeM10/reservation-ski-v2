@@ -40,7 +40,7 @@ const PostDetail = () => {
             </Button>
             
             <PostDetailInfos post={post} />
-            <BookingForm post={post} />
+            <BookingForm post={post} fetchPost={fetchPost} />
             <CommentsList post={post}/>
 
         </div>

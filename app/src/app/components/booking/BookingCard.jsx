@@ -20,10 +20,12 @@ const BookingCard = ({ booking }) => {
       console.log("error", error);
     }
   }
+  console.log("booking.post", booking.post);
 
   const cancelBookin = async () => {
     try {
       await PostService.update(booking.post, {isAvailable: true});
+
       await BookingService.remove(booking._id);
       bookingRef.current.style.display = "none";
     } catch (error) {

@@ -6,6 +6,7 @@ import ShopService from '../../../setup/services/shop.service';
 import BookingList from '../booking/BookingList';
 import PostCardMain from '../post/PostCardMain';
 import PostCreate from '../post/PostCreate';
+import ShopEditForm from './ShopEditForm';
 import ShopFormLogin from './ShopFormLogin';
 
 const ShopDetail = () => {
@@ -86,7 +87,7 @@ const ShopDetail = () => {
               Back
             </Button>
             <h1>{shop.name}</h1>
-            <img src={shop.imageUrl} alt="" />
+            <img className="shopLogo" src={shop.logo} alt="" />
 
             <div className="detailHeader">
               <h2>Posts</h2>
@@ -109,11 +110,14 @@ const ShopDetail = () => {
               <Box
                 sx={{
                   display: 'flex',
-                  justifyContent: 'space-between',
+                  justifyContent: 'center',
                   alignItems: 'center',
                   mb: 2,
+                  flexWrap: 'wrap',
+                  gap: 2,
                 }}
               >
+                <ShopEditForm shop={shop} fetchPost={fetchPost} />
                 <PostCreate fetchPost={fetchPost} shop={shop._id} />
                 
                 <BookingList bookings={shop.bookings} />
