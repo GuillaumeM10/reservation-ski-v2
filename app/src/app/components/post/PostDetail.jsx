@@ -1,11 +1,10 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import PostService from '../../../setup/services/post.service';
 import BookingForm from '../booking/BookingForm';
 import CommentsList from '../comment/CommentsList';
-
-import PostDetailIfos from './PostDetailIfos';
+import PostDetailInfos from './PostDetailInfos';
 
 const PostDetail = () => {
   const { id } = useParams();
@@ -40,7 +39,7 @@ const PostDetail = () => {
               Back
             </Button>
             
-            <PostDetailIfos post={post} />
+            <PostDetailInfos post={post} />
             <BookingForm post={post} />
             <CommentsList post={post}/>
 

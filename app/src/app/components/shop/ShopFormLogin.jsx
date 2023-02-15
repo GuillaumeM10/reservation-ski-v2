@@ -43,7 +43,6 @@ const ShopFormLogin = ({ handleLogin, open, setOpen }) => {
           Admin Login
         </Typography>
 
-        {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}> */}
           <Box
             component={'form'}
             sx={{
@@ -73,7 +72,6 @@ const ShopFormLogin = ({ handleLogin, open, setOpen }) => {
               Signin
             </Button>
           </Box>
-        {/* </Typography> */}
       </Box>
     </ Modal>
   );

@@ -15,6 +15,31 @@ body{
   font-family: 'Roboto', sans-serif;
 }
 
+a{
+  text-decoration: none;
+}
+
+input[type="search"]{
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.479);
+  background-color: transparent;
+  outline: none;
+  font-size: 16px;
+  padding: 5px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.425);
+  width: fit-content;
+  flex-grow: 100%;
+  flex-shrink: 100%;
+  flex-basis: 80%;
+  text-align: center;
+
+  &::placeholder{
+    color: rgba(0, 0, 0, 0.356);
+    text-align: center;
+  }
+}
+
 .App{
   > div{
     display: flex;
@@ -56,14 +81,40 @@ body{
       flex-direction: row;
       gap: 1rem;
       align-items: center;
+      // justify-content: space-between;
+      width: 100%;
 
       img{
         width: 300px;
         height: 150px;
         object-fit: contain;
       }
+
+      // @media screen and (max-width: 768px){
+      //   align-items: start!important;
+      // }
+    }
+    .label{
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: flex-start;
+
+      span{
+        font-size: 14px;
+      }
     }
   }
+
+  .cardMain.commentCard{
+    justify-content: space-between;
+
+    @media screen and (max-width: 768px){
+      align-items: start!important;
+    }
+
+  }
+
   @media screen and (max-width: $mobile){
     padding: $pxM;
     width: 300px;

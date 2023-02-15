@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import PostService from '../../../setup/services/post.service';
 import ShopService from '../../../setup/services/shop.service';
+import BookingList from '../booking/BookingList';
 import PostCardMain from '../post/PostCardMain';
 import PostCreate from '../post/PostCreate';
 import ShopFormLogin from './ShopFormLogin';
@@ -114,6 +115,9 @@ const ShopDetail = () => {
                 }}
               >
                 <PostCreate fetchPost={fetchPost} shop={shop._id} />
+                
+                <BookingList bookings={shop.bookings} />
+                
                 <Button 
                   onClick={deleteShop}
                   variant="contained"
@@ -133,7 +137,7 @@ const ShopDetail = () => {
               )):
               <li>
                 <Typography>
-                  No posts yet
+                  No posts yet, please login as admin to create one.
                 </Typography>
               </li>
               }

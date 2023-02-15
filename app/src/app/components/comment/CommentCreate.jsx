@@ -3,10 +3,9 @@ import { Box } from '@mui/system';
 import React, { useState } from 'react';
 import CommentService from '../../../setup/services/comment.service';
 
-const CommentCreate = ({ post }) => {
+const CommentCreate = ({ post, fetchComments }) => {
   const [newComment, setNewComment] = useState({});
-  console.log(post);
-
+  
   const handleChange = (e) => {
     const {name, value} = e.target;
     setNewComment({
@@ -19,6 +18,7 @@ const CommentCreate = ({ post }) => {
   const createComment = async () => {
     try {
       await CommentService.create(newComment);
+      fetchComments();
     } catch (error) {
       console.log("error : ", error.message);
     }
