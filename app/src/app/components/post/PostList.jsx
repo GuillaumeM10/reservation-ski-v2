@@ -1,34 +1,46 @@
-import { Box } from '@mui/material'
-import { useEffect, useState } from 'react';
-import PostService from '../../../setup/services/post.service';
+import { Box, Button, Typography } from '@mui/material'
 import PostCardMain from './PostCardMain';
 
-const PostList = () => {
-  const [posts, setPosts] = useState([]);
+const PostList = ({ posts }) => {
 
-  useEffect(() => {
-    fetchAllPosts()
-  }, []);
-
-  const fetchAllPosts = async () => {
-    try{
-      const response = await PostService.getAll()
-      setPosts([...response]);
-    } catch(err){
-      console.log(err);
-    }
-  }
-  
   return (
     <Box>
       {/* <Grid container spacing={2}> */}
       <ul className='mainList'>
 
-        {posts.map((post) => (
+        {posts[0] ? posts.map((post) => (
           <li key={post._id} >
             <PostCardMain post={post} />
           </li>
-        ))}
+        )) 
+        :<>
+          <Typography
+            variant="h6"
+            component="h2"
+            sx={{
+              color: 'black',
+              textAlign: 'center',
+              margin: 'auto',
+            }}
+          >
+            There are no posts yet ! To create one, you need to create a shop first .
+          </Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            href="/shops"
+            sx={{
+              color: 'white',
+              textAlign: 'center',
+              margin: 'auto',
+              width: 'fit-content!important',
+            }}
+          >
+            <Typography>
+              Click here to go to shops page !
+            </Typography>
+          </Button>
+        </>}
       {/* </Grid> */}
       </ul>
     </Box>

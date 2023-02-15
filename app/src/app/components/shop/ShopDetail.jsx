@@ -1,6 +1,7 @@
-import { Button, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import PostService from '../../../setup/services/post.service';
 import ShopService from '../../../setup/services/shop.service';
 import PostCardMain from '../post/PostCardMain';
 import PostCreate from '../post/PostCreate';
@@ -55,12 +56,34 @@ const ShopDetail = () => {
     localStorage.removeItem(shop._id);
   }
 
+  const deleteShop = async () => {
+    try {
+      shop.posts.forEach(post => {
+        PostService.remove(post._id);
+      });
+      await ShopService.remove(shop._id);
+      window.location.href = '/';
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <>
       {shop && (
         <>
           <div className='shopDetails'>
-            <a href="/">Back</a>
+            <Button 
+              href="/"
+              variant="text"
+              sx={{ 
+                mt: 5,
+                color: 'black',
+              }}
+              className="backButton"
+            >
+              Back
+            </Button>
             <h1>{shop.name}</h1>
             <img src={shop.imageUrl} alt="" />
 
@@ -82,16 +105,38 @@ const ShopDetail = () => {
               )}
             </div>
             {loggedIn && (
-              <>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  mb: 2,
+                }}
+              >
                 <PostCreate fetchPost={fetchPost} shop={shop._id} />
-              </>
+                <Button 
+                  onClick={deleteShop}
+                  variant="contained"
+                  color="error"
+                >
+                  <Typography>
+                    Delete Shop
+                  </Typography>
+                </Button>
+              </Box>
             )}
             <ul className='mainList'>
-              {shop.posts.map((product) => (
+              {shop.posts[0] ? shop.posts.map((product) => (
                 <li key={product._id}>
                   <PostCardMain post={product} loggedIn={loggedIn} fetchPost={fetchPost} />
                 </li>
-              ))}
+              )):
+              <li>
+                <Typography>
+                  No posts yet
+                </Typography>
+              </li>
+              }
             </ul>
 
           </div>

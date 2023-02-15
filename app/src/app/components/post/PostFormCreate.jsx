@@ -80,6 +80,7 @@ const PostFormCreate = ({ handleClose, fetchPost, shop }) => {
           required
           onChange={(e)=>handleChange(e)}
         >
+          <option>Choisir</option>
           <option value="45">Plus de 45kg</option>
           <option value="4565">Entre 45 et 65kg</option>
           <option value="65">Plus de 65kg</option>
@@ -99,6 +100,7 @@ const PostFormCreate = ({ handleClose, fetchPost, shop }) => {
           required
           onChange={(e)=>handleChange(e)}
         >
+          <option>Choisir</option>
           <option value="140">140cm</option>
           <option value="145">145cm</option>
           <option value="150">150cm</option>
@@ -126,6 +128,7 @@ const PostFormCreate = ({ handleClose, fetchPost, shop }) => {
           required
           onChange={(e)=>handleChange(e)}
         >
+          <option>Choisir</option>
           <option value="Freeride">Freeride</option>
           <option value="Freestyle">Freestyle</option>
           <option value="Piste">Piste</option>

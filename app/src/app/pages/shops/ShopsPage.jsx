@@ -22,8 +22,8 @@ const ShopsPage = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false)
-  const [shops, setShops] = useState([]);
 
+  const [shops, setShops] = useState([]);
 
   useEffect(() => {
     fetchAllShops()
@@ -80,8 +80,20 @@ const ShopsPage = () => {
           </Box>
         </Modal>
       </PagesListLayout>
-
-      <ShopList shops={shops} />
+      
+      {shops[0] ?
+        <ShopList shops={shops} /> 
+      :
+      <Typography
+        sx={{
+          textAlign: 'center',
+          mt: 10,
+        }}
+        >
+        There are no shops yet, create one!
+      </Typography>
+      }
+      
     </Box>
   );
 };
