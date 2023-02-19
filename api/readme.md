@@ -11,6 +11,7 @@ MONGO_INITDB_DATABASE=test
 MONGO_PORT=27017
 MONGO_HOST=localhost
 PORT=8000
+ACCESS_TOKEN_SECRET=aled
 ```
 
 # Start project (dev)

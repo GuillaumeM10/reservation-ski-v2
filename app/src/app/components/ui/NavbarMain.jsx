@@ -1,5 +1,9 @@
+import { Button } from '@mui/material';
 import { Box } from '@mui/system';
-import React from 'react';
+import React, { useState } from 'react';
+import AccessTokenService from '../../../setup/services/token.service';
+import SignInForm from '../auth/SignInForm';
+import SignUpForm from '../auth/SignUpForm';
 import NavbarItem from './NavbarItem';
 
 const ConfigNavbarItems = [
@@ -15,6 +19,17 @@ const ConfigNavbarItems = [
 
 
 const NavbarMain = () => {
+  const [token, setToken] = useState(null);
+
+  React.useEffect(() => {
+    setToken(AccessTokenService.getAccessToken());
+  }, []);
+  
+  const logout = () => {
+    AccessTokenService.removeAccessToken();
+    setToken(null);
+  }
+
   return (
     <Box
       component={'nav'}
@@ -39,6 +54,40 @@ const NavbarMain = () => {
           label={item.label}
         />
       ))}
+
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: 2,
+          width: 'fit-content',
+        }}
+      >
+        {!token ?
+        <>
+          <SignInForm />
+          <SignUpForm />
+        </>
+      :
+        <>
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: 'green',
+              color: 'white',
+              '&:hover': {
+                backgroundColor: 'green',
+                color: 'white',
+              }
+            }}
+            onClick={logout}
+          >
+            Logout
+          </Button>
+        </> 
+      }
+      </Box>
     </Box>
   );
 };

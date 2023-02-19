@@ -12,6 +12,11 @@ const shopSchema = new Schema({
     // `Date.now()` returns the current unix timestamp as a number
     default: Date.now
   },
+  user: {
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: "User",
+    required: true
+  },
   posts: [
     {
     type: mongoose.Schema.Types.ObjectId,
