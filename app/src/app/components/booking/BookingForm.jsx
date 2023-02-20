@@ -20,8 +20,6 @@ const BookingForm = ({ post, fetchPost }) => {
   const [booking, setBooking] = useState({});
   const isBooked = post.isAvailable;
 
-  console.log(isBooked);
-
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);

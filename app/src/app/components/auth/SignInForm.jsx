@@ -22,8 +22,6 @@ const SignInForm = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  let correctPassord = false
-
   const handleChange = (e) => {
     const {name, value} = e.target;
     setUser({
@@ -32,25 +30,16 @@ const SignInForm = () => {
     })
   }
 
-  const passwordCheck = () =>{
-    if(user.password !== user.confirmPassword){
-      alert("Password does not match");
-      correctPassord = false;
-    }else{
-      setUser({"email": user.email, "password": user.password})
-      correctPassord = true;
-    }
-  }
+
 
   const signIn = async () =>{
-    passwordCheck();
-    if(correctPassord){
-      try {
-        await AuthService.signin(user);
-        handleClose();
-      } catch (error) {
-        console.log("error", error);
-      }
+    try {
+      await AuthService.signin(user);
+      await AuthService.user(localStorage.getItem("email"));
+      window.location.reload();
+      handleClose();
+    } catch (error) {
+      console.log("error", error);
     }
   }
 
@@ -61,7 +50,7 @@ const SignInForm = () => {
         color="primary"
         onClick={handleOpen}
       >
-        Sign-Up
+        Connexion
       </Button>
       
 
@@ -100,7 +89,7 @@ const SignInForm = () => {
               variant="h6"
               component="h2"
             >
-              Sign in Form
+              Connexion Form
             </Typography>
             <FormGroup>
               <TextField
@@ -124,17 +113,6 @@ const SignInForm = () => {
                 onChange={(e)=>handleChange(e)}
               /> 
             </FormGroup>
-            <FormGroup>
-              <TextField
-                sx={{ width: 300 }}
-                label="Confirm Password"
-                variant="outlined"
-                type="password"
-                name="confirmPassword"
-                required
-                onChange={(e)=>handleChange(e)}
-              /> 
-            </FormGroup>
             
             <Button
               variant="contained"
@@ -152,7 +130,18 @@ const SignInForm = () => {
               }}
             >
               <Typography>
-                Sign In
+                Connexion
+              </Typography>
+            </Button>
+            <Button
+              variant="text"
+              href='/forget-password'
+              sx={{
+                color: 'black',
+              }}
+            >
+              <Typography>
+                Forget password
               </Typography>
             </Button>
           </Box>

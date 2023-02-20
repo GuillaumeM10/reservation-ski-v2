@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e47d6cd9-50b8-4ab7-a15e-6872898af7d3",
+		"_postman_id": "87899a01-b17e-43bb-a69b-0dec58ecaa89",
 		"name": "Reservation Ski v2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -441,6 +441,143 @@
 			]
 		},
 		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "resetPassword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": \"63dcdf33fa2d6647070d020b\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/forgot-password",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SignUp",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"aled4@gmail.com\",\r\n    \"password\": \"oled2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/signup",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SignIn",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const {accessToken} = pm.response.json()\r",
+									"console.log(accessToken)\r",
+									"pm.globals.set('accessToken',accessToken)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"aled4@gmail.com\",\r\n    \"password\": \"oled2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/signin",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllTokens",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/auth/tokens",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"tokens"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Get",
 			"request": {
 				"method": "GET",
@@ -479,6 +616,11 @@
 		{
 			"key": "api_url",
 			"value": "http://localhost:8000/api",
+			"type": "default"
+		},
+		{
+			"key": "url",
+			"value": "http://localhost:8000",
 			"type": "default"
 		}
 	]

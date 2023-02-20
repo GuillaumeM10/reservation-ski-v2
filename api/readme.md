@@ -1,5 +1,6 @@
 # Instructions
-You can import the file "Reservation Ski.postman_collection.json" in Postman to test the API.
+You can import the file "Reservation Ski.postman_collection.json" in Postman to test the API.\
+This file is not up to date.
 
 # .ENV
 Like it's a local project, you can use the .env.example file to create your .env file.\
@@ -11,7 +12,7 @@ MONGO_INITDB_DATABASE=test
 MONGO_PORT=27017
 MONGO_HOST=localhost
 PORT=8000
-ACCESS_TOKEN_SECRET=aled
+ACCESS_TOKEN_SECRET="secret"
 ```
 
 # Start project (dev)

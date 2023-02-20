@@ -53,38 +53,95 @@ const AuthController = {
       }
 
     },
-    getAllToken: async (req, res) => {
+    getUser: async (req, res) => {
+      const email = req.user.email
       try {
-        const tokenResetPassword = await TokenResetPassword.find().populate('user');
-        res.send(tokenResetPassword);
+        const user = await User.findOne({ email: email })
+        console.log(user);
+        res.send(user);
       } catch (error) {
         res.status(400).send({ message: error.message });
       }
     },
-    createToken: async (req, res) => {
-      const tokgen = new TokenGenerator(256, TokenGenerator.BASE62);
-      const token = tokgen.generate();
-  
+    forgotPassword: async (req, res) => {
+      const { email } = req.body;
       try {
-        const user = req.body.user
-
-        if(!user) {
-          return res.status(404).send({ message: 'User not found' });
+        const user = await User.findOne({ email: email });
+        
+        if (!user) {
+          return res.status(404).send({ message: "User not found" });
         }
 
-        const tokenResetPassword = await TokenResetPassword.create({ token, user });
-        res.send({tokenResetPassword});
+        const resetPassword = await TokenResetPassword.findOne({ user: user._id });
+
+        let uuidToken
+        if (!resetPassword) {
+          uuidToken = new TokenGenerator(256, TokenGenerator.BASE62).generate();
+          
+          console.log(uuidToken);
+          TokenResetPassword.create({ user: user._id, token: uuidToken });
+        } else {
+          uuidToken = resetPassword.token;
+        }
+
+        const mailOptions = {
+          from: "ui@esd.com",
+          to: email,
+          subject: "Reset password link",
+          html: `<a href="http://localhost:3000/reset-password/${uuidToken}">Reset password</a>`,
+        };
+
+        transporter.sendMail(mailOptions, function (error, info) {
+
+          if (error) {
+            console.log(error);
+          } else {
+            console.log("Email sent: " + info.response);
+          }
+
+        });
+
+        res.send({ message: "Reset password link sent to your email" });
       } catch (error) {
-        res.status(400).send({ message: error.message });
+        res.status(500).send({ error: error.message });
       }
     },
-    deleteToken: async (req, res) => {
-      const { token } = req.params;
+    resetPassword: async (req, res) => {
       try {
-          const tokenResetPassword = await TokenResetPassword.findByIdAndDelete(token);
-          res.send(tokenResetPassword);
+        const { id } = req.params;
+        const { password } = req.body;
+        console.log("id", id);
+        console.log("password", password);
+      
+        const findResetPassword = await TokenResetPassword.findOne({ token: id });
+        console.log("findResetPassword", findResetPassword);  
+      
+        if (!findResetPassword) {
+          return response
+            .status(404)
+            .send({ message: "Reset password link not found" });
+        }
+
+        const userId = findResetPassword.user;
+        const user = User.findOne({ id: userId });
+
+        if (!user) {
+          return res.status(404).send({ message: "User not found" });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, salt);
+        console.log("hashedPassword", hashedPassword);
+
+        const updateUser = await User.findByIdAndUpdate(userId, {
+          password: hashedPassword,
+        });
+
+        await updateUser.save();
+        await TokenResetPassword.findByIdAndDelete(findResetPassword._id);
+
+        res.send(updateUser);
       } catch (error) {
-          res.status(404).send({ message: error });
+        res.status(500).send({ error: error.message });
       }
     }
 }

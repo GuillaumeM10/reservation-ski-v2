@@ -7,11 +7,7 @@ import CommentCreate from './CommentCreate';
 
 const CommentsList = ({ post }) => {
   const [comments, setComments] = useState([]);
-  let isAdmin = false;
-
-  if(localStorage.getItem(post.shop)){
-    isAdmin = localStorage.getItem(post.shop);
-  }
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const fetchComments = async() => {
     try {
@@ -23,6 +19,9 @@ const CommentsList = ({ post }) => {
     }
   }
   useEffect(() => {
+    if(post.shop == localStorage.getItem('shopId')){
+      setIsAdmin(true);
+    }
     fetchComments()
   }, []);
 

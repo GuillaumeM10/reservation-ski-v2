@@ -12,7 +12,6 @@ const PostCardMain = ({ post, loggedIn, fetchPost }) => {
   const deletePost = async (id) => {
     try {
       const response = await PostService.remove(id);
-      console.log(response);
       fetchPost();
     } catch (error) {
       console.log(error);

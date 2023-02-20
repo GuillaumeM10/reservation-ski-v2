@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AccessTokenService from '../../../setup/services/token.service';
 import SignInForm from '../auth/SignInForm';
 import SignUpForm from '../auth/SignUpForm';
@@ -21,15 +21,19 @@ const ConfigNavbarItems = [
 const NavbarMain = () => {
   const [token, setToken] = useState(null);
 
-  React.useEffect(() => {
-    setToken(AccessTokenService.getAccessToken());
+  useEffect(() => {
+    const help = async () => {
+      setToken(await AccessTokenService.getAccessToken());
+    }
+    help();
   }, []);
-  
+
   const logout = () => {
     AccessTokenService.removeAccessToken();
-    setToken(null);
+    setToken(false);
+    window.location.reload();
   }
-
+  
   return (
     <Box
       component={'nav'}
@@ -64,13 +68,24 @@ const NavbarMain = () => {
           width: 'fit-content',
         }}
       >
-        {!token ?
+      {token ?
         <>
-          <SignInForm />
-          <SignUpForm />
-        </>
-      :
-        <>
+          {localStorage.getItem('shopId') &&
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: 'blue',
+                color: 'white',
+                '&:hover': {
+                  backgroundColor: 'blue',
+                  color: 'white',
+                }
+              }}
+              href={'/shop/'+ localStorage.getItem('shopId')}
+            >
+              My Shop
+            </Button>
+          }
           <Button
             variant="contained"
             sx={{
@@ -86,6 +101,11 @@ const NavbarMain = () => {
             Logout
           </Button>
         </> 
+      :
+        <>
+          <SignInForm />
+          <SignUpForm />
+        </>
       }
       </Box>
     </Box>

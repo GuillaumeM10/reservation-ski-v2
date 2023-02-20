@@ -7,31 +7,21 @@ import BookingList from '../booking/BookingList';
 import PostCardMain from '../post/PostCardMain';
 import PostCreate from '../post/PostCreate';
 import ShopEditForm from './ShopEditForm';
-import ShopFormLogin from './ShopFormLogin';
 
 const ShopDetail = () => {
   const { id } = useParams();
   const [shop, setShop] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
 
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-
   useEffect(() => {
     fetchPost();
   }, []);
   
   useEffect(() => {
-    if(shop && localStorage.getItem(shop._id)) {
+    if(shop && shop.user == localStorage.getItem('userId')) {
       setLoggedIn(true);
     }
   }, [shop]);
-
-  useEffect(() => {
-    if (loggedIn) {
-      setOpen(false);
-    }
-  }, [loggedIn]);
 
   const fetchPost = async () => {
     try {
@@ -42,27 +32,12 @@ const ShopDetail = () => {
     } 
   }
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    const password = e.target.parentElement.querySelector('input').value;
-    if (password === shop.password) {
-      setLoggedIn(true);
-      localStorage.setItem(shop._id, true);
-    } else {
-      alert('Wrong password');
-    }
-  }
-
-  const logout = () => {
-    setLoggedIn(false);
-    localStorage.removeItem(shop._id);
-  }
-
   const deleteShop = async () => {
     try {
       shop.posts.forEach(post => {
         PostService.remove(post._id);
       });
+      localStorage.removeItem('shopId');
       await ShopService.remove(shop._id);
       window.location.href = '/';
     } catch (error) {
@@ -91,20 +66,6 @@ const ShopDetail = () => {
 
             <div className="detailHeader">
               <h2>Posts</h2>
-              {!loggedIn && (
-                <Button onClick={handleOpen}>
-                  <Typography>
-                    Admin Login
-                  </Typography>
-                </Button>
-              )}
-              {loggedIn && (
-                <Button onClick={logout}>
-                  <Typography>
-                    Logout
-                  </Typography>
-                </Button>
-              )}
             </div>
             {loggedIn && (
               <Box
@@ -148,8 +109,6 @@ const ShopDetail = () => {
             </ul>
 
           </div>
-
-          <ShopFormLogin handleLogin={handleLogin} open={open} setOpen={setOpen} />
         </>
       )}
     </>

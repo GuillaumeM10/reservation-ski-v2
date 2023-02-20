@@ -32,7 +32,18 @@ const SignUpForm = () => {
     })
   }
 
+  const passwordCheck = () =>{
+    if(user.password !== user.confirmPassword){
+      alert("Password does not match");
+      correctPassord = false;
+    }else{
+      // setUser(user.pop('confirmPassword'))
+      correctPassord = true;
+    }
+  }
+
   const signUp = async () =>{
+    passwordCheck();
     if(correctPassord){
       try {
         await AuthService.signup(user);
@@ -50,7 +61,7 @@ const SignUpForm = () => {
         color="primary"
         onClick={handleOpen}
       >
-        Sign-In
+        Inscription
       </Button>
       
 
@@ -89,7 +100,7 @@ const SignUpForm = () => {
               variant="h6"
               component="h2"
             >
-              Sign up Form
+              Inscription Form
             </Typography>
             <FormGroup>
               <TextField
@@ -113,6 +124,17 @@ const SignUpForm = () => {
                 onChange={(e)=>handleChange(e)}
               /> 
             </FormGroup>
+            <FormGroup>
+              <TextField
+                sx={{ width: 300 }}
+                label="Confirm Password"
+                variant="outlined"
+                type="password"
+                name="confirmPassword"
+                required
+                onChange={(e)=>handleChange(e)}
+              /> 
+            </FormGroup>
             
             <Button
               variant="contained"
@@ -130,7 +152,7 @@ const SignUpForm = () => {
               }}
             >
               <Typography>
-                Sign up
+                Inscription
               </Typography>
             </Button>
           </Box>

@@ -1,4 +1,5 @@
 const Shop = require("../models/shop.model");
+const User = require("../models/user.model");
 
 const ShopController =  {
   getAll : async (req, res) => {
@@ -24,8 +25,18 @@ const ShopController =  {
 
   create: async (req, res) => {
     try {
-        const shop = await Shop.create(req.body);
-        res.send(shop);
+      const userId = req.body.user;
+      const user = await User.findById(userId);
+
+      if (user.shop) {
+        return res.status(401).send({ message: "You already have a shop" });
+      }
+      const shop = await Shop.create(req.body);
+
+      user.shop = shop._id;
+      await user.save();
+
+      res.send(shop);
     } catch (error) {
         console.log(error);
         res.status(400).send({ message: error });
@@ -46,6 +57,11 @@ const ShopController =  {
     const { id } = req.params;
     try {
         const shop = await Shop.findByIdAndDelete(id);
+        const user = await User.findById(shop.user);
+
+        user.shop = null;
+        await user.save();
+
         res.send(shop);
     } catch (error) {
         res.status(404).send({ message: error });

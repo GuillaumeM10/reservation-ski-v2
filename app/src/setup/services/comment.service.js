@@ -4,7 +4,6 @@ const host = 'http://localhost:8000/api';
 
 const getAll = async () => {
   const response = await axios.get(host + '/comments');
-  console.log(response.data);
   return response.data;
 }
 

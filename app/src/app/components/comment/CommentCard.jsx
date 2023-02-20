@@ -18,7 +18,6 @@ const CommentCard = ({ comment, fetchComments, isAdmin }) => {
 
   const deleteComment = async (e) => {
     e.preventDefault();
-    console.log(comment._id);
     try {
       await CommentService.remove(comment._id);
       fetchComments()
