@@ -23,10 +23,44 @@ const ForgotPasswordForm = () => {
   };
 
   return (
-    <Box>
+    <Box
+      component={"div"}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+        maxWidth: "800px",
+        margin: "0 auto",
+      }}
+    >
       <Typography variant="h1">Forget password</Typography>
-      <Box component={"form"} onSubmit={onSubmitForm}>
-        <FormGroup>
+      <Box 
+        component={"form"} 
+        onSubmit={onSubmitForm}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "100%",
+          maxWidth: "400px",
+          margin: "0 auto",
+          padding: "1rem",
+        }}
+      >
+        <FormGroup
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            margin: "0 auto",
+            padding: "1rem",
+          }}
+        >
           <TextField
             variant="outlined"
             label="Email"
@@ -34,22 +68,45 @@ const ForgotPasswordForm = () => {
             name="email"
             value={email}
             onChange={onChangeEmail}
+            required
+            sx={{width: "100%"}}
           />
         </FormGroup>
         {result.type === "success" && (
-          <Typography variant="p" color="success">
+          <Typography 
+            variant="p" 
+            color="success"
+            sx={{ 
+              marginBottom: "1rem",
+              width: "100%",
+            }}
+          >
             {result.message}
           </Typography>
         )}
         {result.type === "error" && (
-          <Typography variant="p" color="error">
+          <Typography 
+            variant="p" 
+            color="error"
+            sx={{ 
+              marginBottom: "1rem",
+              width: "100%",
+            }}
+          >
             {result.message}
           </Typography>
         )}
         <Button type="submit" variant="contained">
           Confirm
         </Button>
-        <Typography variant="p" to="/auth/signin" component={Link}>
+        <Typography 
+          variant="p" 
+          to="/auth/signin" 
+          component={Link}
+          sx={{
+            marginTop: "1rem",
+          }}
+        >
           Cancel
         </Typography>
       </Box>
